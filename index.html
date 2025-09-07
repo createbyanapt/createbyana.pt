@@ -1,35 +1,22 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-  <meta charset="UTF-8">
-  <title>Localização</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
+<a id="mapaLink">
+  <img src="icone-igreja.png" alt="Como chegar">
+</a>
+
 <script>
-  // 👉 EDITA AQUI
-  const nomeLocal = "Mosteiro de Nossa Senhora do Ó";
+  const nomeLocal = "Mosteiro da Nossa Senhora do Ó";
   const morada = "Rua do Mosteiro, 957 , Águas Santas, Portugal";
   const endereco = encodeURIComponent(nomeLocal + ", " + morada);
 
   const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
   const isAndroid = /Android/.test(navigator.userAgent);
 
+  const link = document.getElementById("mapaLink");
+
   if (isAndroid) {
-      // ANDROID → Google Maps direto
-      window.location = "geo:0,0?q=" + endereco;
+    link.href = "geo:0,0?q=" + endereco;
   } else if (isIOS) {
-      // iOS → tenta Google Maps
-      window.location = "comgooglemaps://?q=" + endereco;
-      // fallback → Apple Maps
-      setTimeout(function() {
-          window.location = "maps://?q=" + endereco;
-      }, 800);
+    link.href = "maps://?q=" + endereco;
   } else {
-      // Outros → Google Maps no browser
-      window.location = "https://www.google.com/maps/search/?api=1&query=" + endereco;
+    link.href = "https://www.google.com/maps/search/?api=1&query=" + endereco;
   }
 </script>
-</body>
-</html>
-
