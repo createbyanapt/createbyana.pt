@@ -13,11 +13,18 @@
   const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
   const isAndroid = /Android/.test(navigator.userAgent);
 
-  if (isIOS) {
-      window.location = "maps://?q=" + endereco;
-  } else if (isAndroid) {
+  if (isAndroid) {
+      // Android: abre Google Maps
       window.location = "geo:0,0?q=" + endereco;
+  } else if (isIOS) {
+      // iPhone: tenta abrir Google Maps, se não abrir, abre Apple Maps
+      window.location = "comgooglemaps://?q=" + endereco;
+      // Depois de 1 segundo, se Google Maps não abrir, abre Apple Maps
+      setTimeout(function() {
+          window.location = "maps://?q=" + endereco;
+      }, 1000);
   } else {
+      // Qualquer outro dispositivo / navegador: abre Google Maps no browser
       window.location = "https://www.google.com/maps/search/?api=1&query=" + endereco;
   }
 </script>
