@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Localização</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<script>
+  const nomeLocal = "Café Central";
+  const morada = "Rua da Exemplo, 123, Lisboa";
+  const endereco = encodeURIComponent(nomeLocal + ", " + morada);
+
+  const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+  const isAndroid = /Android/.test(navigator.userAgent);
+
+  if (isIOS) {
+      window.location = "maps://?q=" + endereco;
+  } else if (isAndroid) {
+      window.location = "geo:0,0?q=" + endereco;
+  } else {
+      window.location = "https://www.google.com/maps/search/?api=1&query=" + endereco;
+  }
+</script>
+</body>
+</html>
